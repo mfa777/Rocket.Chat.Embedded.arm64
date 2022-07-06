@@ -11,7 +11,7 @@ See the `README.md` in  the `rocketchat`` directory on how to build the image.
 Once you have the images built, make sure you have a `data` directory - then you can startup the mongo server:
 
 ```
-docker.compose up -d mongo
+sudo docker compose up -d mongo
 ```
 
 The mongo server will use the `data` directory to store the rocketchat data.   You can take a look in the directory to see that it is populated.
@@ -19,7 +19,7 @@ The mongo server will use the `data` directory to store the rocketchat data.   Y
 Examine the logs to see that the server is listening to connections:
 
 ```
-docker logs compose_mongo_1 
+sudo docker logs mongo
 ```
 
 ### initialize mongo replicaset
@@ -27,7 +27,7 @@ docker logs compose_mongo_1
 Next, you need to do this ONE TIME ONLY - to initialize the replicaset in mongo.  This turns the mongo server into a single primary  replicaset node.
 
 ```
-docker.compose run --rm  mongo-init-replica
+sudo docker compose run --rm  mongo-init-replica
 ```
 
 You should see output similar to:
@@ -46,7 +46,7 @@ Note the `{ "ok" : 1 }` responose.
 You can also check that the mongo server indeed has started up as a PRIMARY node via the logs:
 
 ```
-docker logs compose_mongo_1
+sudo docker logs mongo
 ```
 
 Look for similar message to ones below:
@@ -65,12 +65,20 @@ Look for similar message to ones below:
 ```
 Note that mongo node is now a PRIMARY node. Your mongo server is now up and running as a single node PRIMARY replicaset.
 
+### change Site URL
+
+Run mongo shell within docker container:
+
+`sudo docker compose exec mongo mongo`
+
+In mongo shell, run: `use rocketchat` -> `db.rocketchat_settings.update({"_id" : "Site_Url"},{$set:{value:"http://NEW_URL"}})`
+
 ### start the rocketchat server
 
 With the mongo server up and running, you can now start the rocketchat server.  Use the command:
 
 ```
-docker.compose up -d rocketchat
+sudo docker compose up -d rocketchat
 ```
 
 Starting the rocketchat server on a Raspberry Pi or 32 bit ARM SoC board will probably take a minute or two, so please be patient.
@@ -78,7 +86,7 @@ Starting the rocketchat server on a Raspberry Pi or 32 bit ARM SoC board will pr
 Meanwhile, you can check the logs to see the progress:
 
 ```
-docker logs compose_rocketchat_1
+sudo docker logs rocketchat -f
 ```
 
 Keep checking the logs until you see the `SERVER RUNNING` message box similar to the one below:
