@@ -69,7 +69,9 @@ Note that mongo node is now a PRIMARY node. Your mongo server is now up and runn
 
 Run mongo shell within docker container:
 
-`sudo docker compose exec mongo mongo`
+```
+sudo docker compose exec mongo mongo
+```
 
 In mongo shell, run: `use rocketchat` -> `db.rocketchat_settings.update({"_id" : "Site_Url"},{$set:{value:"http://NEW_URL"}})`
 
@@ -86,7 +88,7 @@ Starting the rocketchat server on a Raspberry Pi or 32 bit ARM SoC board will pr
 Meanwhile, you can check the logs to see the progress:
 
 ```
-sudo docker logs rocketchat -f
+sudo docker compose logs rocketchat -f
 ```
 
 Keep checking the logs until you see the `SERVER RUNNING` message box similar to the one below:
