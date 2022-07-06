@@ -15,7 +15,7 @@ services:
     networks:
       - inet
   rocketchat:
-    image: rocketchat:arm64-2.4.9
+    image: rocketchat:arm64-4.1.2
     environment:
       - ROOT_URL=http://localhost:3000
       - PORT=3000
