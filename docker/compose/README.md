@@ -78,7 +78,7 @@ In mongo shell, run: `use rocketchat` -> `db.rocketchat_settings.update({"_id" :
 ```
 rs0:PRIMARY> use rocketchat
 switched to db rocketchat                                                                                               
-rs0:PRIMARY> db.rocketchat_settings.update({"_id" : "Site_Url"},{$set:{value:"http://192.168.50.50:3000"}})
+rs0:PRIMARY> db.rocketchat_settings.update({"_id" : "Site_Url"},{$set:{value:"http://NEW_URL"}})
 WriteResult({ "nMatched" : 0, "nUpserted" : 0, "nModified" : 0 })
 rs0:PRIMARY> exit
 bye
